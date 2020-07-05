@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import {Form} from '@unform/mobile';
+import api from '../../services/api';
 import {FormHandles} from '@unform/core';
 import {Container,Title, BackToSignInButton, BackToSignInButtonText} from './styles';
 import * as Yup from 'yup';
@@ -37,9 +38,11 @@ const SignUp: React.FC = () => {
                 abortEarly:false,
             });
 
-            //await api.post('users', data)
+            await api.post('users', data)
 
-            //history.push('/');
+            navigation.goBack();
+
+            Alert.alert('Cadastro realizado com sucesso !','Você já pode fazer login na aplicação');
         }catch(err){
 
             if(err instanceof Yup.ValidationError){

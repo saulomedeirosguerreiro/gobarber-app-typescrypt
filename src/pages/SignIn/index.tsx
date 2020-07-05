@@ -1,6 +1,7 @@
 import React, {useRef, useCallback} from 'react';
 import {Image,View, KeyboardAvoidingView, Platform, ScrollView, TextInput,Alert} from 'react-native';
 import logoImg from '../../assets/logo.png';
+import {useAuth} from '../../context/authContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/Feather';
@@ -19,6 +20,7 @@ const SignIn: React.FC = () => {
     const navigation = useNavigation();
     const formRef = useRef<FormHandles>(null);
     const passwordInputRef = useRef<TextInput>(null);
+    const{signIn} = useAuth();
 
      const handleSignIn = useCallback(async (data:SignInFormData) => {
         try{
@@ -33,7 +35,7 @@ const SignIn: React.FC = () => {
                 abortEarly:false,
             });
 
-           // await signIn({email:data.email, password:data.password});
+           await signIn({email:data.email, password:data.password});
 
            // history.push('/dashboard');
         }catch(err){
